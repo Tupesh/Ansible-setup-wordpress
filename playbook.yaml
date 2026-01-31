@@ -82,11 +82,6 @@
         name: apache2
         state: restarted
 
-    - name: restart mysql
-      ansible.builtin.service:
-        name: mysql
-        state: restarted
-
 
 
 
@@ -119,7 +114,7 @@
     - name: Create wordpress user and provide priviledges 
       community.mysql.mysql_user:
         name: wordpress
-        host: 192.168.56.16
+        host: 192.168.56.15
         password: "wordpress"
         priv: "wordpress.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER"
         state: present
@@ -132,3 +127,11 @@
         regexp: '^\s*bind-address\s*='
         line: 'bind-address = 0.0.0.0'
       notify: restart mysql
+
+
+  handlers:
+    - name: restart mysql
+      ansible.builtin.service:
+        name: mysql
+        state: restarted
+
