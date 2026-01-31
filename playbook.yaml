@@ -1,0 +1,111 @@
+---
+# Configuring wordpress server 
+
+- name: Setup apache for wordpress
+  hosts: apacheweb 
+  become: true
+  tasks:
+    - name: Install Apache service and other php packages.......
+      apt:
+       name:
+           - apache2
+           - ghostscript
+           - libapache2-mod-php
+           - php
+           - php-bcmath
+           - php-curl
+           - php-imagick
+           - php-intl
+           - php-json
+           - php-mbstring
+           - php-mysql
+           - php-xml
+           - php-zip
+       state: present
+       update_cache: true
+    
+    - name: creating up directory.......
+      file:
+        path: /srv/www
+        state: directory
+        owner: www-data
+        group: www-data
+ 
+    - name: Downloading and unarchiving the wordpresss file.........
+      ansible.builtin.unarchive:
+        src: https://wordpress.org/latest.tar.gz
+        dest: /srv/www
+        remote_src: yes
+
+    - name: Configuration for wordpress......
+      copy:
+        src: ./copyingFiles/wordpress.conf
+        dest: /etc/apache2/sites-available/wordpress.conf
+        owner: www-data
+        group: www-data
+        mode: '0644'
+    
+    - name: Start and enable apache2
+      service:
+        name: apache2
+        state: started
+
+    - name: copying rewrite.load with symlink to create a copy link
+      file:
+        src: /etc/apache2/mods-available/rewrite.load
+        dest: /etc/apache2/mods-enabled/rewrite.load
+        state: link
+      notify: reload apache
+
+    - name: copying wp config file as link to enable it
+      file:
+        src: /etc/apache2/sites-available/wordpress.conf
+        dest: /etc/apache2/sites-enabled/wordpress.conf
+        state: link
+      notify: reload apache
+
+    - name: Disable/delete default apachepage
+      file:
+        path: /etc/apache2/sites-enabled/000-default.conf
+        state: absent
+      notify: reload apache
+
+        
+
+  handlers:
+    - name: reload apache
+      service:
+        name: apache2
+        state: restarted
+
+  
+
+
+
+
+
+# Configuring the database server 
+- name: Setup mysql
+  hosts: dbnode
+  become: true
+  tasks:
+    - name: Installing Database
+      apt:
+        name: mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Start and enable mysql
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+    
+    - name: Creating wordpress database
+      mysql_db:
+        name: wordpress
+        state: present
+
+
+
+
