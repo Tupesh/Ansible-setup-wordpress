@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define( 'DB_NAME', '{{wpdb}}' );
 
 /** MySQL database username */
-define( 'DB_USER', 'wordpress' );
+define( 'DB_USER', '{{wpuser}}' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'wordpress' );
+define( 'DB_PASSWORD', '{{wp_pass}}' );
 
 /** MySQL hostname */
-define( 'DB_HOST', '192.168.56.16' );
+define( 'DB_HOST', '{{db_host}}' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -49,14 +49,14 @@ define('FS_METHOD', 'direct');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '#^1<e %UFUx6&77+RFl7Del^jZ)_}1*UNNWc03oTA5T;g+leEW.]kmox|vlNqaBj');
-define('SECURE_AUTH_KEY',  'knX;h/H8Y8DH-T0Xu5iY`el#VbD(ov`>zJ8O>)}Z;68j #KJE4gpt<]o/%C-?~D$');
-define('LOGGED_IN_KEY',    '8+h|%CdMe/l-kk?f3~DWqI,6r?+^Q^|QsY^{9#!Oqtur5+8|_: f;++Ci@wZZ3tf');
-define('NONCE_KEY',        '9.KVa,-N}-Do(:+;OKv[.=n*.:`8(_0~H0&j)xgw73lE+Shkhzl(.:Ki+Du1rq10');
-define('AUTH_SALT',        'ROh&eu!Xw6a +}dhX0;!JUf8ak3bcGGo{Xl^FCT`KOW+`i.KZW2;ogBe8RYPf-*>');
-define('SECURE_AUTH_SALT', 'e|yl0bFRzxu} ] 4 >[3 9{+ZO63y0]dgFkOFr!|<^`E[:5>Ww0v5/y-F6TxZB^6');
-define('LOGGED_IN_SALT',   '[n`xIl!?P>.Z+(R`%2K[5E(7!+!C(HTTOLd+:a.kkA[=@+/-<=+<kZ_%b/7.,+qp');
-define('NONCE_SALT',       'a&w9Le)/r<xG6b/=%~K[e>RJ:3@F<xxIOX)(NBF^vbC?ue.M*3h a9F+QJ<AG}5X');
+define('AUTH_KEY',         '{{auth_key}}');
+define('SECURE_AUTH_KEY',  '{{secure_auth_key}}');
+define('LOGGED_IN_KEY',    '{{logged_in_key}}');
+define('NONCE_KEY',        '{{nonce_key}}');
+define('AUTH_SALT',        '{{auth_salt}}');
+define('SECURE_AUTH_SALT', '{{secure_auth_salt}}');
+define('LOGGED_IN_SALT',   '{{logged_in_salt}}');
+define('NONCE_SALT',      '{{nonce_salt}}');
 /**#@-*/
 
 /**

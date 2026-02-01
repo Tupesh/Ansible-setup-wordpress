@@ -1,3 +1,9 @@
 apacheweb ansible_hosts=192.168.56.15 ansible_ssh_user=vagrant ansible_ssh_password=vagrant
 
 dbnode ansible_hosts=192.168.56.16 ansible_ssh_user=vagrant ansible_ssh_password=vagrant
+
+[wordpress]
+apacheweb
+
+[database]
+dbnode

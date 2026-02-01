@@ -70,8 +70,8 @@
         state: absent
       notify: reload apache
 
-    - name: copying config files
-      copy: 
+    - name: rendering config files with actual values
+      template: 
         src: ./copyingFiles/wp-config.php
         dest: /srv/www/wordpress/wp-config.php
         
@@ -107,16 +107,16 @@
           
     - name: create database for wordpress
       community.mysql.mysql_db:
-        name: wordpress
+        name: "{{wpdb}}"
         state: present
         login_unix_socket: /run/mysqld/mysqld.sock    
 
     - name: Create wordpress user and provide priviledges 
       community.mysql.mysql_user:
-        name: wordpress
+        name: "{{wpuser}}"
         host: 192.168.56.15
-        password: "wordpress"
-        priv: "wordpress.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER"
+        password: "{{wp_pass}}"
+        priv: "{{wp_pass}}.*:SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER"
         state: present
         update_password: on_create
         login_unix_socket: /run/mysqld/mysqld.sock
